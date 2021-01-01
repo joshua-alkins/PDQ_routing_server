@@ -1,4 +1,3 @@
 /pdq_server
-/__pycache__
-/routing_server/__pycache__
+**/__pycache__/
 .env

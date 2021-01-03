@@ -2,11 +2,14 @@ from flask import Blueprint
 from bson.json_util import dumps
 from bson.objectid import ObjectId
 
-from flask import jsonify, request
-from werkzeug.security import generate_password_hash, check_password_hash
+from flask import jsonify, request, make_response
+from werkzeug.security import generate_password_hash
+
+from ..Security.Security import token_required
 
 from ..Database import DB as DB
 
+from ..settings import SECRET_KEY
 
 driver_api = Blueprint('driver_api', __name__)
 
@@ -28,13 +31,13 @@ def add():
     else:
         return not_found()
 
-@driver_api.route('/all-drivers')
+@driver_api.route('/list-all')
 def drivers():
     drivers = DB.retrieve_all_drivers()
     response = dumps(drivers)
     return response
 
-@driver_api.route('/user/<id>')
+@driver_api.route('/<id>')
 def driver(id):
     driver = DB.retrieve_driver(id)
     response = dumps(driver)
@@ -70,24 +73,6 @@ def update_driver(driver_id):
 
     else:
         return not_found()
-
-@driver_api.route('/login')
-def login():
-    _json = request.json
-    _email = _json['email']
-    _password = _json['password']
-
-    if _email and _password:
-        result = DB.get_driver_password(_email)
-        if check_password_hash(result['password'],_password):
-            return jsonify(True)
-        else:
-            return jsonify(False)
-
-    else:
-        return not_found()
-
-    
 
 @driver_api.errorhandler(404)
 def not_found(error=None):

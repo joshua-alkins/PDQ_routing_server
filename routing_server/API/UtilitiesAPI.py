@@ -7,7 +7,7 @@ from flask import jsonify, request
 
 import datetime, json, random
 
-from ..Database import MongoDB as DB
+from ..Database import DB as DB
 
 
 utilities_api = Blueprint('utilies_api', __name__)

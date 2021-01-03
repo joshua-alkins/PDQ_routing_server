@@ -7,7 +7,7 @@ from flask import jsonify, request
 
 import datetime, json
 
-from ..Database import MongoDB as DB
+from ..Database import DB as DB
 
 delivery_api = Blueprint('delivery_api', __name__)
 
@@ -50,8 +50,8 @@ def request_delivery():
     else:
         not_found()
 
-@delivery_api.route('/confirm', methods=['PUT'])
-def confirm():
+@delivery_api.route('/accept', methods=['PUT'])
+def accepted():
     _json = request.json
     _order_id = _json['order_id']
     _driver_id = _json['driver_id']
@@ -64,7 +64,7 @@ def confirm():
     else:
         return not_found()
 
-@delivery_api.route('/delivered', methods=['PUT'])
+@delivery_api.route('/deliver', methods=['PUT'])
 def delivered():
     _json = request.json
     _order_id = _json['order_id']
@@ -80,12 +80,13 @@ def delivered():
 
 @delivery_api.errorhandler(404)
 def not_found(error=None):
+    URL= request.url
     message = {
         'status': 404,
-        'message': 'Not Found' + request.url
+        'message': 'Unexpected error'
     }
 
     response = jsonify(message)
-    response.status_code = 404
+    response.status_code = 400
 
     return response

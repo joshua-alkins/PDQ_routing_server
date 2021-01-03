@@ -5,7 +5,7 @@ from bson.objectid import ObjectId
 from flask import jsonify, request
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from ..Database import MongoDB as DB
+from ..Database import DB as DB
 
 
 driver_api = Blueprint('driver_api', __name__)
@@ -20,7 +20,7 @@ def add():
 
     if _name and _email and _license and _password and request.method == 'POST':
         _hashed_password = generate_password_hash(_password)
-        id = DB.add_driver(_name, _email, _license,_hashed_password)
+        driver_id = DB.add_driver(_name, _email, _license,_hashed_password)
 
         response = jsonify("Driver added successfully")
 

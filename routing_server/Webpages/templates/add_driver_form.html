@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %} Add Driver {% endblock %}
+{% block scripts%}
+<!-- <script type="text/javascript" src="{{ url_for('static', filename='javascript/form_utils.js') }}"></script> -->
+<script>
+    function check_and_submit_form(form,fields){
+        var clear = check_form_fields(fields);
+        if (clear){
+            document.getElementById(form).submit();
+        }
+    }
+
+    function check_form_fields(fields){
+        var clear = true;
+
+        for (field of fields){
+            element = document.getElementById(field);
+            if (element.value.trim() == ''){
+                document.getElementById(field+'_error').style.display="block";
+                clear = false;
+            }else{
+                document.getElementById(field+'_error').style.display="none";
+            }
+        }
+        return clear;
+    }
+</script>
+{% endblock %}
+
+{% block content%}
+<form id="driver_form" action="#" method="POST">
+    <label for="name">Name</label><br>
+    <input type="text" id="name" name="name"><br>
+    <p id="name_error" style="display:none;">Name is required.</p>
+
+    <label for="email">Email</label><br>
+    <input type="text" id="email" name="email"><br>
+    <p id="email_error" style="display:none;">Email is required.</p>
+    
+    <label for="license">License Plate Number</label><br>
+    <input type="text" id="license" name="license"><br>
+    <p id="license_error" style="display:none;">License plate numebr is required.</p>
+    <br>
+</form>
+<button onclick="check_and_submit_form('driver_form',['name','email','license'])">Submit</button>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title%} Admin Login {% endblock %}
+{% block scripts%}
+<script>
+    function check_and_submit_form(form,fields){
+        var clear = check_form_fields(fields);
+        if (clear){
+            document.getElementById(form).submit();
+        }
+    }
+
+    function check_form_fields(fields){
+        var clear = true;
+
+        for (field of fields){
+            element = document.getElementById(field);
+            if (element.value.trim() == ''){
+                document.getElementById(field+'_error').style.display="block";
+                clear = false;
+            }else{
+                document.getElementById(field+'_error').style.display="none";
+            }
+        }
+        return clear;
+    }
+</script>
+{% endblock %}
+{% block content%}
+<form id="admin_login" action="#" method="POST">
+    <label for="username">Username</label><br>
+    <input type="text" id="username" name="username"><br>
+    <p id="username_error" style="display:none;">Username is required.</p>
+
+    <label for="password">Password</label><br>
+    <input type="text" id="password" name="password"><br><br>
+    <p id="password_error" style="display:none;">Password is required.</p>
+
+    <p id="invalid_credentials_error" style="display:none;">Incorrect username or password.</p>
+
+</form>
+<button onclick="check_and_submit_form('admin_login',['username','password'])">Login</button>
+{% endblock %}

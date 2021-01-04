@@ -26,9 +26,9 @@ def retrieve_delivery(factory_id):
     query = {"factory_id": factory_id, "status": "open"}
 
     delivery = mongo.db.deliveries.find(query).sort("order_time",1).limit(1)
-    response = dumps(delivery)
+    response = dumps(delivery[0])
 
-    json_data = json.loads(response)[0]
+    json_data = json.loads(response)
 
     order_id = json_data['order_id']
 
@@ -52,6 +52,13 @@ def deliver_order(order_id):
 
     mongo.db.deliveries.update_one(query, values)
 
+    return True
+
+def decline_order(order_id, driver_id):
+    query = {'order_id': order_id}
+    values ={"$set":{'driver_id': driver_id, 'status': 'open'}}
+
+    mongo.db.deliveries.update_one(query,values)
     return True
 
 """ Driver Cluster """

@@ -77,6 +77,18 @@ def delivered():
     else:
         return not_found()
 
+@delivery_api.route('/decline', methods=['PUT'])
+def decline():
+    _json = request.json
+    _order_id = _json['order_id']
+
+    if _order_id and request.method == 'PUT':
+        DB.decline_order(_order_id)
+
+        response = jsonify("successfully updated")
+        return response
+    else:
+        return not_found()
 
 @delivery_api.errorhandler(404)
 def not_found(error=None):

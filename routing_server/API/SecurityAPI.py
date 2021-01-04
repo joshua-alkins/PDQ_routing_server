@@ -7,7 +7,7 @@ from ..Security.Security import create_token
 
 security_api = Blueprint('security_api', __name__)
 
-@security_api.route('/driver-login')
+@security_api.route('/driver-login', methods=['POST'])
 def driver_login():
     _json = request.json
     try:
@@ -20,9 +20,9 @@ def driver_login():
         result = DB.get_driver_password(_email)
         if check_password_hash(result['password'],_password):
             token = create_token(_email)
-            return token
+            return jsonify({"token":token,"valid":"valid"})
         else:  
-            return make_response('Could not verify!', 401)
+            return make_response(jsonify({"valid":"invalid"}), 401)
 
     else:
-        return make_response('Missing credentials.', 401)
+        return make_response(jsonify({"valid":"missing"}), 401)

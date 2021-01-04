@@ -54,7 +54,7 @@ def request_delivery():
         if response != {}:
             return response
         else:
-            return make_response('No deliveries.',204)
+            return {}, 204
     else:
         not_found()
 

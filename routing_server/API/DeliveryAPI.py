@@ -32,6 +32,7 @@ def add():
 def request_list():
     _json = request.json
     _factory_id = _json['factory_id']
+
     
     if _factory_id:
         response = DB.retrieve_deliveries(_factory_id)
@@ -42,6 +43,10 @@ def request_list():
 @delivery_api.route('/request')
 def request_delivery():
     _json = request.json
+    print("Request JSON:")
+    print(_json)
+    print("Request JSON:")
+    print(request)
     _factory_id = _json['factory_id']
     
     if _factory_id:

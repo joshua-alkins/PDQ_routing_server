@@ -3,7 +3,7 @@ from flask import Blueprint
 from bson.json_util import dumps
 from bson.objectid import ObjectId
 
-from flask import jsonify, request
+from flask import jsonify, request, make_response
 
 import datetime, json
 
@@ -51,7 +51,10 @@ def request_delivery():
     
     if _factory_id:
         response = DB.retrieve_delivery(_factory_id)
-        return response
+        if response != {}:
+            return response
+        else:
+            return make_response('No deliveries.',204)
     else:
         not_found()
 

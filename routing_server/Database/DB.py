@@ -27,15 +27,18 @@ def retrieve_delivery(factory_id):
 
     delivery = mongo.db.deliveries.find(query).sort("order_time",1).limit(1)
     print(delivery)
-    response = dumps(delivery[0])
+    if delivery.length()>0:
+        response = dumps(delivery[0])
 
-    json_data = json.loads(response)
+        json_data = json.loads(response)
 
-    order_id = json_data['order_id']
+        order_id = json_data['order_id']
 
-    query = {'order_id': order_id}
-    values = {"$set": {'status': 'pending'}}
-    mongo.db.deliveries.update_one(query, values)
+        query = {'order_id': order_id}
+        values = {"$set": {'status': 'pending'}}
+        mongo.db.deliveries.update_one(query, values)
+    else:
+        response = {}
 
     return response
 

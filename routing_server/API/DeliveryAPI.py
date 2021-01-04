@@ -8,6 +8,7 @@ from flask import jsonify, request, make_response
 import datetime, json
 
 from ..Database import DB as DB
+from ..Security.Security import token_required
 
 delivery_api = Blueprint('delivery_api', __name__)
 
@@ -28,7 +29,8 @@ def add():
         return not_found()
 
 
-@delivery_api.route('/request-list')
+@delivery_api.route('/request-list', methods=['POST'])
+@token_required
 def request_list():
     _json = request.json
     _factory_id = _json['factory_id']
@@ -41,6 +43,7 @@ def request_list():
         not_found()
 
 @delivery_api.route('/request', methods=['POST'])
+@token_required
 def request_delivery():
     _json = request.json
     print("Request JSON:")
@@ -59,6 +62,7 @@ def request_delivery():
         not_found()
 
 @delivery_api.route('/accept', methods=['PUT'])
+@token_required
 def accepted():
     _json = request.json
     _order_id = _json['order_id']
@@ -73,6 +77,7 @@ def accepted():
         return not_found()
 
 @delivery_api.route('/deliver', methods=['PUT'])
+@token_required
 def delivered():
     _json = request.json
     _order_id = _json['order_id']
@@ -86,6 +91,7 @@ def delivered():
         return not_found()
 
 @delivery_api.route('/decline', methods=['PUT'])
+@token_required
 def decline():
     _json = request.json
     _order_id = _json['order_id']

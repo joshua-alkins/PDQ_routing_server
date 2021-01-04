@@ -18,6 +18,7 @@ def driver_login():
 
     if _email and _password:
         result = DB.get_driver_password(_email)
+        print(result)
         if result != None:
             if check_password_hash(_password,result):
                 token = create_token(_email)

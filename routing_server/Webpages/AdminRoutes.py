@@ -34,14 +34,15 @@ def add_driver():
             driver_name = request.form['name']
             email = request.form['email']
             license_plate = request.form['license']
+            factor_id = request.form['factory_id']
 
             # check email not in db
 
             password = generate_password_hash('password'+license_plate)
 
-            DB.add_driver(driver_name,email,license_plate,password)
+            DB.add_driver(driver_name,email,license_plate,factor_id,password)
             # show success message 
-            return render_template('success_page.html')
+            return redirect(url_for('admin_webpages.add_driver'))
         else:
             return render_template('add_driver_form.html')
     else:

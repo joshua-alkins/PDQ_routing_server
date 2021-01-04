@@ -20,10 +20,11 @@ def add():
     _email = _json['email']
     _license = _json['license']
     _password = _json['password']
+    _factory_id = _json['factory_id']
 
-    if _name and _email and _license and _password and request.method == 'POST':
+    if _name and _email and _license and _password and _factory_id and request.method == 'POST':
         _hashed_password = generate_password_hash(_password)
-        driver_id = DB.add_driver(_name, _email, _license,_hashed_password)
+        driver_id = DB.add_driver(_name, _email, _license, _factory_id,_hashed_password)
 
         response = jsonify("Driver added successfully")
 

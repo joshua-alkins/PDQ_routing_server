@@ -37,9 +37,11 @@ def populate_drivers():
         for j in range(2):
             plate += random.choice('0123456789')
 
+        factory = random.choice(['F1','F2','F3','F4'])
+
         email = firstname + '_' + lastname + plate + '@pdq.com' 
 
-        driver = {'name': name, 'email': email, 'license': plate, 'password': password}
+        driver = {'name': name, 'email': email, 'license': plate, 'factory_id':factory,'password': password}
         drivers += [driver]
 
     DB.add_many_drivers(drivers)

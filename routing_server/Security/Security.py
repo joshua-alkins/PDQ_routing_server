@@ -29,4 +29,4 @@ def token_required(f):
 
 
 def create_token(email):
-    return jwt.encode({'user':email, 'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=16)},SECRET_KEY)
+    return jwt.encode({'user':email},SECRET_KEY)

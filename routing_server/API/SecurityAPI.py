@@ -17,13 +17,15 @@ def driver_login():
         return make_response('Missing credentials.', 200)
 
     if _email and _password:
-        result = DB.get_driver_password(_email)
-        print("result: "+ _password)
+        result = DB.get_driver_by_email(_email)
+        hashed_password = result['password']
+        factory_id = result['factory_id']
+
         if result != None:
-            if check_password_hash(result,_password):
+            if check_password_hash(hashed_password,_password):
                 token = create_token(_email)
                 print("valid credentials")
-                return jsonify({"token":token,"valid":"valid"})
+                return jsonify({"token":token, "factory_id": factory_id,"valid":"valid"})
             else:  
                 print("credentials did not match")
                 return make_response(jsonify({"valid":"invalid"}), 200)

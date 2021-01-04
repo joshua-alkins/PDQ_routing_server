@@ -66,8 +66,8 @@ def decline_order(order_id, driver_id):
     return True
 
 """ Driver Cluster """
-def add_driver(name, email, license_plate, password):
-    mongo.db.drivers.insert({'name': name, 'email': email, 'license': license_plate, 'password': password})
+def add_driver(name, email, license_plate, factory_id, password):
+    mongo.db.drivers.insert({'name': name, 'email': email, 'license': license_plate, 'factory_id': factory_id, 'password': password})
     return True
 
 def retrieve_all_drivers():
@@ -86,11 +86,11 @@ def update_driver(driver_id, name, email, license_plate, password):
     mongo.db.drivers.update_one({'_id': ObjectId(driver_id['$oid']) if '$oid' in driver_id else ObjectId(driver_id)}, {'$set': {'name': name, 'email': email, 'license': license_plate,'password': password}})
     return True
 
-def get_driver_password(email):
+def get_driver_by_email(email):
     query = {"email": email}
     driver = mongo.db.drivers.find_one(query)
     try:
-        password = driver['password']
+        password = driver
     except:
         password = None
     return password

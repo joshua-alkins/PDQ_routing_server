@@ -40,8 +40,12 @@
     
     <label for="license">License Plate Number</label><br>
     <input type="text" id="license" name="license"><br>
-    <p id="license_error" style="display:none;">License plate numebr is required.</p>
+    <p id="license_error" style="display:none;">License plate numeber is required.</p>
+
+    <label for="factory_id">Factory ID</label><br>
+    <input type="text" id="factory_id" name="factory_id"><br>
+    <p id="license_error" style="display:none;">Factory ID numeber is required.</p>
     <br>
 </form>
-<button onclick="check_and_submit_form('driver_form',['name','email','license'])">Submit</button>
+<button onclick="check_and_submit_form('driver_form',['name','email','license','factory_id'])">Submit</button>
 {% endblock %}

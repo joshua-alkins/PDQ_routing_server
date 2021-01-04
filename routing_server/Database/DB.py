@@ -88,7 +88,11 @@ def update_driver(driver_id, name, email, license_plate, password):
 
 def get_driver_password(email):
     query = {"email": email}
-    password = mongo.db.drivers.find_one(query)
+    driver = mongo.db.drivers.find_one(query)
+    try:
+        password = driver['password']
+    except:
+        password = None
     return password
 
 """ Utilities """

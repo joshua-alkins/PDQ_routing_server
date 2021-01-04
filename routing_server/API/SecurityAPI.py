@@ -18,10 +18,13 @@ def driver_login():
 
     if _email and _password:
         result = DB.get_driver_password(_email)
-        if check_password_hash(result['password'],_password):
-            token = create_token(_email)
-            return jsonify({"token":token,"valid":"valid"})
-        else:  
+        if result != None:
+            if check_password_hash(result,_password):
+                token = create_token(_email)
+                return jsonify({"token":token,"valid":"valid"})
+            else:  
+                return make_response(jsonify({"valid":"invalid"}), 401)
+        else:
             return make_response(jsonify({"valid":"invalid"}), 401)
 
     else:

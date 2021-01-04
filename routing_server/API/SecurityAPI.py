@@ -21,6 +21,7 @@ def driver_login():
         if result != None:
             if check_password_hash(result,_password):
                 token = create_token(_email)
+                print("valid credentials")
                 return jsonify({"token":token,"valid":"valid"})
             else:  
                 return make_response(jsonify({"valid":"invalid"}), 200)

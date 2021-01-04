@@ -14,7 +14,7 @@ def driver_login():
         _email = _json['email']
         _password = _json['password']
     except:
-        return make_response('Missing credentials.', 401)
+        return make_response('Missing credentials.', 200)
 
     if _email and _password:
         result = DB.get_driver_password(_email)
@@ -23,9 +23,9 @@ def driver_login():
                 token = create_token(_email)
                 return jsonify({"token":token,"valid":"valid"})
             else:  
-                return make_response(jsonify({"valid":"invalid"}), 401)
+                return make_response(jsonify({"valid":"invalid"}), 200)
         else:
-            return make_response(jsonify({"valid":"invalid"}), 401)
+            return make_response(jsonify({"valid":"invalid"}), 200)
 
     else:
-        return make_response(jsonify({"valid":"missing"}), 401)
+        return make_response(jsonify({"valid":"missing"}), 200)

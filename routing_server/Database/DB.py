@@ -26,6 +26,7 @@ def retrieve_delivery(factory_id):
     query = {"factory_id": factory_id, "status": "open"}
 
     delivery = mongo.db.deliveries.find(query).sort("order_time",1).limit(1)
+    print(delivery)
     response = dumps(delivery[0])
 
     json_data = json.loads(response)

@@ -40,7 +40,7 @@ def request_list():
     else:
         not_found()
 
-@delivery_api.route('/request')
+@delivery_api.route('/request', methods=['POST'])
 def request_delivery():
     _json = request.json
     print("Request JSON:")

@@ -24,8 +24,10 @@ def driver_login():
                 print("valid credentials")
                 return jsonify({"token":token,"valid":"valid"})
             else:  
+                print("credentials did not match")
                 return make_response(jsonify({"valid":"invalid"}), 200)
         else:
+            print("could not find user")
             return make_response(jsonify({"valid":"invalid"}), 200)
 
     else:

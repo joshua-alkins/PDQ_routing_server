@@ -19,7 +19,7 @@ def driver_login():
     if _email and _password:
         result = DB.get_driver_password(_email)
         if result != None:
-            if check_password_hash(result,_password):
+            if check_password_hash('password',_password):
                 token = create_token(_email)
                 print("valid credentials")
                 return jsonify({"token":token,"valid":"valid"})

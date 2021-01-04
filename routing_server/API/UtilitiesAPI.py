@@ -60,7 +60,7 @@ def populate_deliveries():
             id_extention += random.choice('0123456789')
 
         order_id = 'O' + id_extention
-        factory_id = random.choice(['F1','F1','F1','F1'])
+        factory_id = random.choice(['F1','F2','F3','F4'])
         factory_location = {"lat":31.339018926934187, "lon":120.41726838280294}
         delivery_location =  random.choice([{"lat":31.32756756669994, "lon":120.41071042984981},{"lat":31.32365879731752, "lon":120.43023074941391}])
         driver_id = None

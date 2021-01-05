@@ -46,10 +46,6 @@ def request_list():
 @token_required
 def request_delivery():
     _json = request.json
-    print("Request JSON:")
-    print(_json)
-    print("Request JSON:")
-    print(request)
     _factory_id = _json['factory_id']
     
     if _factory_id:
@@ -61,20 +57,20 @@ def request_delivery():
     else:
         not_found()
 
-@delivery_api.route('/accept', methods=['PUT'])
-@token_required
-def accepted():
-    _json = request.json
-    _order_id = _json['order_id']
-    _driver_id = _json['driver_id']
+# @delivery_api.route('/accept', methods=['PUT'])
+# @token_required
+# def accepted():
+#     _json = request.json
+#     _order_id = _json['order_id']
+#     _driver_id = _json['driver_id']
 
-    if _order_id and _driver_id and request.method == 'PUT':
-        DB.confirm_order(_order_id, _driver_id)
+#     if _order_id and _driver_id and request.method == 'PUT':
+#         DB.confirm_order(_order_id, _driver_id)
 
-        response = jsonify('success')
-        return response
-    else:
-        return not_found()
+#         response = jsonify('success')
+#         return response
+#     else:
+#         return not_found()
 
 @delivery_api.route('/deliver', methods=['PUT'])
 @token_required
@@ -90,19 +86,19 @@ def delivered():
     else:
         return not_found()
 
-@delivery_api.route('/decline', methods=['PUT'])
-@token_required
-def decline():
-    _json = request.json
-    _order_id = _json['order_id']
+# @delivery_api.route('/decline', methods=['PUT'])
+# @token_required
+# def decline():
+#     _json = request.json
+#     _order_id = _json['order_id']
 
-    if _order_id and request.method == 'PUT':
-        DB.decline_order(_order_id)
+#     if _order_id and request.method == 'PUT':
+#         DB.decline_order(_order_id)
 
-        response = jsonify("successfully updated")
-        return response
-    else:
-        return not_found()
+#         response = jsonify("successfully updated")
+#         return response
+#     else:
+#         return not_found()
 
 @delivery_api.errorhandler(404)
 def not_found(error=None):

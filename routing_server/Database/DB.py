@@ -7,13 +7,17 @@ import datetime, json
 """ Deliveries Cluster"""
 
 def add_new_delivery(order_id, factory_id, factory_location, delivery_location):
-    driver_id = None
-    status = "open"
-    order_time = datetime.datetime.utcnow()
-    delivery_time = None
+    try:
+        driver_id = None
+        status = "open"
+        order_time = datetime.datetime.utcnow()
+        delivery_time = None
 
-    mongo.db.deliveries.insert_one({'order_id': order_id, 'factory_id': factory_id, 'factory_location': factory_location, 'delivery_location': delivery_location, 'driver_id': driver_id, 'status': status, 'order_time': order_time, "delivery_time": delivery_time})
-    return True
+        mongo.db.deliveries.insert_one({'order_id': order_id, 'factory_id': factory_id, 'factory_location': factory_location,\
+            'delivery_location': delivery_location, 'driver_id': driver_id, 'status': status, 'order_time': order_time, "delivery_time": delivery_time})
+        return True
+    except:
+        return False
 
 def retrieve_deliveries(factory_id):
     query = {"factory_id": factory_id, "status": "open"}
@@ -89,11 +93,7 @@ def update_driver(driver_id, name, email, license_plate, password):
 def get_driver_by_email(email):
     query = {"email": email}
     driver = mongo.db.drivers.find_one(query)
-    try:
-        password = driver
-    except:
-        password = None
-    return password
+    return driver
 
 """ Utilities """
 def add_many_drivers(drivers):

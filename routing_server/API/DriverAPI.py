@@ -13,24 +13,24 @@ from ..settings import SECRET_KEY
 
 driver_api = Blueprint('driver_api', __name__)
 
-@driver_api.route('/add', methods=['POST'])
-def add():
-    _json = request.json
-    _name = _json['name']
-    _email = _json['email']
-    _license = _json['license']
-    _password = _json['password']
-    _factory_id = _json['factory_id']
+# @driver_api.route('/add', methods=['POST'])
+# def add():
+#     _json = request.json
+#     _name = _json['name']
+#     _email = _json['email']
+#     _license = _json['license']
+#     _password = _json['password']
+#     _factory_id = _json['factory_id']
 
-    if _name and _email and _license and _password and _factory_id and request.method == 'POST':
-        _hashed_password = generate_password_hash(_password)
-        driver_id = DB.add_driver(_name, _email, _license, _factory_id,_hashed_password)
+#     if _name and _email and _license and _password and _factory_id and request.method == 'POST':
+#         _hashed_password = generate_password_hash(_password)
+#         driver_id = DB.add_driver(_name, _email, _license, _factory_id,_hashed_password)
 
-        response = jsonify("Driver added successfully")
+#         response = jsonify("Driver added successfully")
 
-        return response
-    else:
-        return not_found()
+#         return response
+#     else:
+#         return not_found()
 
 @driver_api.route('/list-all')
 def drivers():
@@ -44,36 +44,36 @@ def driver(id):
     response = dumps(driver)
     return response
 
-@driver_api.route('/delete/<id>', methods=['DELETE'])
-def delete_driver(id):
-    DB.delete_driver(id)
-    response = jsonify("User successfully deleted")
+# @driver_api.route('/delete/<id>', methods=['DELETE'])
+# def delete_driver(id):
+#     DB.delete_driver(id)
+#     response = jsonify("User successfully deleted")
 
-    response.status_code = 200
+#     response.status_code = 200
 
-    return response
+#     return response
 
-@driver_api.route('/update/<driver_id>', methods = ['PUT'])
-def update_driver(driver_id):
-    _id = driver_id
-    _json = request.json
-    _name = _json['name']
-    _email = _json['email']
-    _license = _json['license']
-    _password = _json['password']
+# @driver_api.route('/update/<driver_id>', methods = ['PUT'])
+# def update_driver(driver_id):
+#     _id = driver_id
+#     _json = request.json
+#     _name = _json['name']
+#     _email = _json['email']
+#     _license = _json['license']
+#     _password = _json['password']
 
-    if _name and _email and _id and _license and _password and request.method =='PUT':
-        _hashed_password =  generate_password_hash(_password)
+#     if _name and _email and _id and _license and _password and request.method =='PUT':
+#         _hashed_password =  generate_password_hash(_password)
 
-        DB.update_driver(_id,_name,_email,_license,_hashed_password)
+#         DB.update_driver(_id,_name,_email,_license,_hashed_password)
 
-        response = jsonify("User successfully added")
-        response.status_code = 200
+#         response = jsonify("User successfully added")
+#         response.status_code = 200
 
-        return response
+#         return response
 
-    else:
-        return not_found()
+#     else:
+#         return not_found()
 
 @driver_api.errorhandler(404)
 def not_found(error=None):

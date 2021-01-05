@@ -17,7 +17,6 @@ def token_required(f):
             token = request.json['token']
             try:
                 data = jwt.decode(token, SECRET_KEY,algorithms="HS256")
-                print(data)
             except :
                 return jsonify({'message': 'token is invalid.'})
         except:
